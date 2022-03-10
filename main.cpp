@@ -5,31 +5,37 @@
 
 int main() {
 
-    struct Hero_t heros;
-    initHero(&heros, "Peter", 300, 100);
+    Hero heros;
+    heros.initHero("Peter", 300, 100);
 
-    struct Charakter_t charakter;
-    initCharacter(&charakter, "Paulo", 50, 100);
+    Charakter charakter;
+    charakter.initCharacter("Paulo", 50, 100);
 
+    bool win = heros.fight(&charakter, &heros);
+    if (win == false){
+        return 0;
+    }
 
-    fight(&heros, &charakter);
+    Item item;
+    item.initItem("Schwert", 100);
 
-    struct Item_t item;
-    initItem(&item, "Schwert", 100);
+    heros.addItem(&item);
 
-    addItem(&heros, &item);
+    charakter.initCharacter("Susi", 100, 100);
 
-    initCharacter(&charakter, "Susi", 100, 100);
+    win = heros.fight(&charakter, &heros);
 
-    fight(&heros, &charakter);
+    if (win == false){
+        return 0;
+    }
 
-    initItem(&item, "Heiltrank", 50);
+    item.initItem( "Heiltrank", 50);
 
-    addItem(&heros, &item);
+    heros.addItem(&item);
 
-    sellItem(&heros, 1);
-    sellItem(&heros, 2);
-    
+    heros.sellItem( 1);
+    heros.sellItem( 2);
+
 
     return 0;
 }

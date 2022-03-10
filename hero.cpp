@@ -7,57 +7,70 @@
 
 
 
-void initHero(struct Hero_t* hero, char* name, int health, int gold){
-    hero->name=name;
-    hero->leben=health;
-    hero->gold= gold;
+void Hero::initHero(std::string name, int health, int gold){
+    this->name = name;
+    this->leben=health;
+    this->gold= gold;
     for (int i = 0; i < 10; ++i) {
-        hero->inventar[i].isValid = false;
+        this->inventar[i].setIsValid(false);
     }
     for (int i = 0; i < 2; ++i) {
-        hero->ausruestung[i].isValid = false;
+        this->ausruestung[i].setIsValid(false);
     }
 }
 
-void attack(struct Hero_t* hero, struct Charakter_t* enemy){
+void Hero::attack(class Charakter* enemy){
     srand((unsigned) time(0));
     int num = 15 + (rand() % 10);
-    enemy->leben = enemy->leben - num;
-    std::cout << hero->name << " trifft " << enemy->name << " fuer " << num << " Lebenspunkte." << std::endl;
+    int leben = enemy->getLeben();
+    enemy->setLeben(leben - num);
+    std::cout << this->name << " trifft " << enemy->getName() << " fuer " << num << " Lebenspunkte." << std::endl;
 }
 
-void sellItem(struct Hero_t* hero, int index){
-    if (hero->inventar[index - 1].isValid){
-        hero->gold = hero->gold + hero->inventar[index-1].wert;
-        std::cout << hero->name << " verkauft " << hero->inventar[index-1].bezeichnung << " fuer " << hero->inventar[index-1].wert << std::endl;
-        initItem(&hero->inventar[index-1]);
+void Hero::sellItem(int index){
+    if (this->inventar[index - 1].isValidget()){
+        this->gold = this->gold + this->inventar[index-1].getWert();
+        std::cout << this->name << " verkauft " << this->inventar[index-1].getBezeichnung() << " fuer " << this->inventar[index-1].getWert() << std::endl;
+        this->inventar[index-1].initItem();
     }
 }
 
-bool fight(struct Hero_t* hero, struct Charakter_t* enemy){
+bool Hero::fight(Charakter* enemy, Hero* hero){
     while (true){
-        attack(hero, enemy);
-        if (enemy->leben <= 0){
-            std::cout << enemy->name << " fiel in Ohnmacht. " << hero->name << " hat noch " << hero->leben << " Lebenspunkte." << std::endl;
+        Hero::attack(enemy);
+        if (enemy->getLeben() <= 0){
+            std::cout << enemy->getName() << " fiel in Ohnmacht. " << this->name << " hat noch " << this->leben << " Lebenspunkte." << std::endl;
             return true;
         }
-        attack(enemy, hero);
-        if (hero->leben <= 0){
-            std::cout << hero->name << " fällt in Ohnmacht." << std::endl;
+        enemy->attack(hero);
+        if (this->leben <= 0){
+            std::cout << this->name << " fällt in Ohnmacht." << std::endl;
             return false;
         }
 
     }
 }
 
-void addItem(struct Hero_t* hero, struct Item_t* item){
+void Hero::addItem(Item* item){
     for (int i = 0; i < 10; ++i) {
-        if (hero->inventar[i].isValid == false){
-            hero->inventar[i].bezeichnung = item->bezeichnung;
-            hero->inventar[i].wert = item->wert;
-            hero->inventar[i].isValid = item->isValid;
-            std::cout << "Gegenstand " << item->bezeichnung << " wurde zum Inventar hinzugefuegt." << std::endl;
+        if (this->inventar[i].isValidget() == false){
+            this->inventar[i].setBezeichnung( item->getBezeichnung()) ;
+            this->inventar[i].setWert(item->getWert()) ;
+            this->inventar[i].setIsValid(item->isValidget()) ;
+            std::cout << "Gegenstand " << item->getBezeichnung() << " wurde zum Inventar hinzugefuegt." << std::endl;
             i = 10;
         }
     }
+}
+
+int Hero::getLeben() const {
+    return leben;
+}
+
+void Hero::setLeben(int leben) {
+    Hero::leben = leben;
+}
+
+const std::string &Hero::getName() const {
+    return name;
 }

@@ -5,16 +5,26 @@
 #include "hero.h"
 #include "item.h"
 
-struct Charakter_t {
+class Charakter {
+private:
     std::string name;
     int leben;
     int gold;
-    struct Item_t inventar[10];
+    Item inventar[10];
+
+public:
+    void initCharacter(std::string name, int health, int gold);
+
+    void attack(class Hero* hero);
+
+    int getLeben() const;
+
+    void setLeben(int leben);
+
+    const std::string &getName() const;
+
 };
 
-void initCharacter(struct Charakter_t* charakter, char* name, int health, int gold);
-
-void attack(struct Charakter_t* character, struct Hero_t* hero);
 
 
 

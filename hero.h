@@ -5,24 +5,31 @@
 #include "character.h"
 #include "item.h"
 
-struct Hero_t {
+class Hero {
+private:
     std::string name;
     int leben;
     int gold;
-    struct Item_t inventar[10];
-    struct Item_t ausruestung[2];
+    Item inventar[10];
+    Item ausruestung[2];
+
+
+public:
+    void initHero(std::string name, int health, int gold);
+
+    void attack(class Charakter* enemy);
+
+    void sellItem( int index);
+
+    bool fight(Charakter* enemy, Hero* hero);
+
+    void addItem( Item* item);
+
+    int getLeben() const;
+
+    void setLeben(int leben);
+
+    const std::string &getName() const;
 };
-
-
-void initHero(struct Hero_t* hero, char* name, int health, int gold);
-
-void attack(struct Hero_t* hero, struct Charakter_t* enemy);
-
-void sellItem(struct Hero_t* hero, int index);
-
-bool fight(struct Hero_t* hero, struct Charakter_t* enemy);
-
-void addItem(struct Hero_t* hero, struct Item_t* item);
-
 
 #endif //MDS2HW1_HERO_H

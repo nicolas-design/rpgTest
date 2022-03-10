@@ -3,14 +3,31 @@
 #define MDS2HW1_ITEM_H
 #include <iostream>
 
-struct Item_t {
+
+class Item {
+private:
     std::string bezeichnung;
     int wert;
     bool isValid;
+
+public:
+    void initItem(std::string name, int gold);
+
+    void initItem();
+
+    const std::string &getBezeichnung() const;
+
+    int getWert() const;
+
+    bool isValidget() const;
+
+    void setBezeichnung(const std::string &bezeichnung);
+
+    void setWert(int wert);
+
+    void setIsValid(bool isValid);
 };
 
-void initItem(struct Item_t* item, char* name, int gold);
 
-void initItem(struct Item_t* gegenstand);
 
 #endif //MDS2HW1_ITEM_H
