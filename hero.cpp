@@ -7,7 +7,7 @@
 
 
 
-void Hero::initHero(std::string name, int health, int gold){
+void Hero::initHero(const std::string name, const int health, const int gold){
     this->name = name;
     this->leben=health;
     this->gold= gold;
@@ -27,11 +27,11 @@ void Hero::attack(class Charakter* enemy){
     std::cout << this->name << " trifft " << enemy->getName() << " fuer " << num << " Lebenspunkte." << std::endl;
 }
 
-void Hero::sellItem(int index){
-    if (this->inventar[index - 1].isValidget()){
-        this->gold = this->gold + this->inventar[index-1].getWert();
-        std::cout << this->name << " verkauft " << this->inventar[index-1].getBezeichnung() << " fuer " << this->inventar[index-1].getWert() << std::endl;
-        this->inventar[index-1].initItem();
+void Hero::sellItem(const int index){
+    if (this->inventar[index].isValidget()){
+        this->gold = this->gold + this->inventar[index].getWert();
+        std::cout << this->name << " verkauft " << this->inventar[index].getBezeichnung() << " fuer " << this->inventar[index].getWert() << std::endl;
+        this->inventar[index].initItem();
     }
 }
 
@@ -40,6 +40,12 @@ bool Hero::fight(Charakter* enemy, Hero* hero){
         Hero::attack(enemy);
         if (enemy->getLeben() <= 0){
             std::cout << enemy->getName() << " fiel in Ohnmacht. " << this->name << " hat noch " << this->leben << " Lebenspunkte." << std::endl;
+            int num = enemy->getRandomItemSlot();
+            if (num != -1){
+                Item item = enemy->removeInventarItem(num);
+                this->addInventarItem(&item);
+            }
+
             return true;
         }
         enemy->attack(hero);
@@ -51,17 +57,56 @@ bool Hero::fight(Charakter* enemy, Hero* hero){
     }
 }
 
-void Hero::addItem(Item* item){
+int Hero::addInventarItem(Item* item){
     for (int i = 0; i < 10; ++i) {
         if (this->inventar[i].isValidget() == false){
-            this->inventar[i].setBezeichnung( item->getBezeichnung()) ;
-            this->inventar[i].setWert(item->getWert()) ;
-            this->inventar[i].setIsValid(item->isValidget()) ;
+            this->inventar[i].initItem(item->getBezeichnung(), item->getWert());
             std::cout << "Gegenstand " << item->getBezeichnung() << " wurde zum Inventar hinzugefuegt." << std::endl;
-            i = 10;
+            return i;
         }
     }
+    return -1;
 }
+
+int Hero::addEquipmentItem(const Item* item){
+    for (int i = 0; i < 2; ++i) {
+        if (this->ausruestung[i].isValidget() == false){
+            this->ausruestung[i].initItem(item->getBezeichnung(), item->getWert());
+            std::cout << "Gegenstand " << item->getBezeichnung() << " wurde zur Ausrüstung hinzugefuegt." << std::endl;
+            return i;
+        }
+    }
+    return -1;
+}
+
+Item Hero::removeInventarItem(int slot){
+    Item item;
+    if (slot < 0 || slot > 10){
+        return item;
+    }
+    if (this->inventar[slot].isValidget()== false){
+        return item;
+    }
+    std::cout << "Gegenstand " << this->inventar[slot].getBezeichnung() << " wurde entfernt" << std::endl;
+    item = this->inventar[slot];
+    this->inventar[slot].initItem();
+    return item;
+}
+
+Item Hero::removeEquipmentItem(int slot){
+    Item item;
+    if (slot < 0 || slot > 10){
+        return item;
+    }
+    if (this->ausruestung[slot].isValidget()== false){
+        return item;
+    }
+    std::cout << "Gegenstand" << this->ausruestung[slot].getBezeichnung() << "wurde entfernt" << std::endl;
+    item = this->ausruestung[slot];
+    this->ausruestung[slot].initItem();
+    return item;
+}
+
 
 int Hero::getLeben() const {
     return leben;

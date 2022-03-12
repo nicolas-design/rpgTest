@@ -13,7 +13,7 @@ private:
     Item inventar[10];
 
 public:
-    void initCharacter(std::string name, int health, int gold);
+    void initCharacter(const std::string name, int health, int gold);
 
     void attack(class Hero* hero);
 
@@ -23,6 +23,11 @@ public:
 
     const std::string &getName() const;
 
+    Item removeInventarItem(int slot);
+
+    int addInventarItem( Item* item);
+
+    int getRandomItemSlot();
 };
 
 

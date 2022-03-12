@@ -11,7 +11,7 @@ private:
     bool isValid;
 
 public:
-    void initItem(std::string name, int gold);
+    void initItem(const std::string name, int gold);
 
     void initItem();
 

@@ -15,15 +15,21 @@ private:
 
 
 public:
-    void initHero(std::string name, int health, int gold);
+    void initHero(const std::string name, const int health, const int gold);
 
     void attack(class Charakter* enemy);
 
-    void sellItem( int index);
+    void sellItem(const int index);
 
     bool fight(Charakter* enemy, Hero* hero);
 
-    void addItem( Item* item);
+    int addInventarItem( Item* item);
+
+    int addEquipmentItem(const Item* item);
+
+    Item removeInventarItem(int slot);
+
+    Item removeEquipmentItem(int slot);
 
     int getLeben() const;
 

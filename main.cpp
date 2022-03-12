@@ -11,6 +11,15 @@ int main() {
     Charakter charakter;
     charakter.initCharacter("Paulo", 50, 100);
 
+    Item buch;
+    buch.initItem("Comic", 20);
+
+    Item trank;
+    trank.initItem("Trank", 50);
+
+    charakter.addInventarItem(&trank);
+    charakter.addInventarItem(&buch);
+
     bool win = heros.fight(&charakter, &heros);
     if (win == false){
         return 0;
@@ -19,9 +28,8 @@ int main() {
     Item item;
     item.initItem("Schwert", 100);
 
-    heros.addItem(&item);
-
     charakter.initCharacter("Susi", 100, 100);
+    charakter.addInventarItem(&item);
 
     win = heros.fight(&charakter, &heros);
 
@@ -29,12 +37,10 @@ int main() {
         return 0;
     }
 
-    item.initItem( "Heiltrank", 50);
-
-    heros.addItem(&item);
 
     heros.sellItem( 1);
-    heros.sellItem( 2);
+
+    heros.sellItem( 0);
 
 
     return 0;

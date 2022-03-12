@@ -2,7 +2,7 @@
 #include "item.h"
 
 
-void Item::initItem(std::string name, int gold){
+void Item::initItem(const std::string name, int gold){
     this->bezeichnung = name;
     this->wert = gold;
     this->isValid = true;
