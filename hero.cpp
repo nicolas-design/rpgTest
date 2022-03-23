@@ -10,9 +10,12 @@
 
 
 void Hero::attack( Character* enemy){
-    srand((unsigned) time(0));
-    int num = 15 + (rand() % 10);
+    int num = this->randomNum(15, 25);
     int leben = enemy->getLeben();
+    num = num - enemy->getArmor();
+    if (num<0){
+        num = 0;
+    }
     enemy->setLeben(leben - num);
     std::cout << this->getName() << " trifft " << enemy->getName() << " fuer " << num << " Lebenspunkte." << std::endl;
 }
@@ -30,7 +33,7 @@ bool Hero::fight(Npc* enemy, Hero* hero){
         Hero::attack(enemy);
         if (enemy->getLeben() <= 0){
             std::cout << enemy->getName() << " fiel in Ohnmacht. " << this->getName() << " hat noch " << this->getLeben() << " Lebenspunkte." << std::endl;
-            int num = enemy->getRandomItemSlot();
+            int num = enemy->retrieveRandomLoot();
             if (num != -1){
                 Item item = enemy->removeInventarItem(num);
                 this->addInventarItem(&item);
@@ -40,7 +43,7 @@ bool Hero::fight(Npc* enemy, Hero* hero){
         }
         enemy->attack(hero);
         if (this->getLeben() <= 0){
-            std::cout << this->getName() << " fällt in Ohnmacht." << std::endl;
+            std::cout << this->getName() << " fiel in Ohnmacht." << std::endl;
             return false;
         }
 
@@ -79,4 +82,8 @@ Hero::Hero(const std::string &name, int leben, int gold, int armor, int magicRes
     for (int i = 0; i < 2; ++i) {
         this->ausruestung[i].setIsValid(false);
     }
+}
+
+Hero::~Hero() {
+    std::cout << "Held " << this->getName() << " verabschiedet sich und geht schlafen." << std::endl;
 }

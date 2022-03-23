@@ -59,3 +59,18 @@ Item Character::getInvenarItem(int slot) {
     return this->inventar[slot];
 }
 
+int Character::randomNum(int unterGrenze, int oberGrenze){
+    srand((unsigned) time(0));
+    int ob = oberGrenze-unterGrenze;
+    int num = unterGrenze + (rand() % ob);
+    return num;
+}
+
+int Character::getArmor() const {
+    return armor;
+}
+
+int Character::getMagicResistance() const {
+    return magicResistance;
+}
+

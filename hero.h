@@ -25,6 +25,7 @@ public:
 
     Item removeEquipmentItem(int slot);
 
+    virtual ~Hero();
 
 };
 

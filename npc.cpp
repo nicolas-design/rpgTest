@@ -17,7 +17,7 @@ void Npc::attack(class Character* hero){
 
 
 
-int Npc::getRandomItemSlot(){
+int Npc::retrieveRandomLoot(){
     int arrCount=0;
     for (int i = 0; i < 10; ++i) {
         if (this->getInvenarItem(i).isValidget()== true){
@@ -45,3 +45,6 @@ int Npc::getRandomItemSlot(){
 }
 
 Npc::Npc(const std::string &name, int leben, int gold, int armor, int magicResistance) : Character(name, leben, gold, armor, magicResistance) {}
+
+Npc::~Npc() {
+}

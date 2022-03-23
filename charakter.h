@@ -35,6 +35,12 @@ public:
     void setLeben(int leben);
 
     void setGold(int gold);
+
+    int randomNum(int unterGrenze, int oberGrenze);
+
+    int getArmor() const;
+
+    int getMagicResistance() const;
 };
 
 #endif //MDS2HW1_CHARAKTER_H

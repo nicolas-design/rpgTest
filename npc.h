@@ -16,7 +16,9 @@ public:
 
     virtual void attack(Character* hero) override;
 
-    int getRandomItemSlot();
+    int retrieveRandomLoot();
+
+    virtual ~Npc();
 };
 
 

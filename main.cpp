@@ -2,13 +2,15 @@
 #include "hero.h"
 #include "npc.h"
 #include "item.h"
+#include "sorcerer.h"
+#include "fighter.h"
 
 int main() {
 
-    Hero heros("Peter", 300, 100, 0, 0);
+    Hero heros("Peter", 300, 100, 10, 10);
 
 
-    Npc charakter("Paulo", 50, 100, 0, 0);
+    sorcerer charakter("Paulo", 50, 100, 0, 10, 10);
 
 
     Item buch;
@@ -28,7 +30,7 @@ int main() {
     Item item;
     item.initItem("Schwert", 100);
 
-    Npc Susi("Susi", 100, 100, 0, 0);
+    Fighter Susi("Susi", 100, 100, 5, 0, 5);
     Susi.addInventarItem(&item);
 
     win = heros.fight(&Susi, &heros);
