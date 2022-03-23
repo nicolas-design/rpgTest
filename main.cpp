@@ -1,15 +1,15 @@
 #include <iostream>
 #include "hero.h"
-#include "character.h"
+#include "npc.h"
 #include "item.h"
 
 int main() {
 
-    Hero heros;
-    heros.initHero("Peter", 300, 100);
+    Hero heros("Peter", 300, 100, 0, 0);
 
-    Charakter charakter;
-    charakter.initCharacter("Paulo", 50, 100);
+
+    Npc charakter("Paulo", 50, 100, 0, 0);
+
 
     Item buch;
     buch.initItem("Comic", 20);
@@ -28,10 +28,10 @@ int main() {
     Item item;
     item.initItem("Schwert", 100);
 
-    charakter.initCharacter("Susi", 100, 100);
-    charakter.addInventarItem(&item);
+    Npc Susi("Susi", 100, 100, 0, 0);
+    Susi.addInventarItem(&item);
 
-    win = heros.fight(&charakter, &heros);
+    win = heros.fight(&Susi, &heros);
 
     if (win == false){
         return 0;
