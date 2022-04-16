@@ -7,8 +7,9 @@
 #include "exception.h"
 
 int main() {
+    try {
+        Hero heros("Peter", 300, 100, 10, 10);
 
-    Hero heros("Peter", 300, 100, 10, 10);
 
     try {
         sorcerer charakter("Paulo", 50, -10, 0, 10, 10);
@@ -62,6 +63,10 @@ int main() {
     } catch (std::exception &e){
         std::cerr << "Exception bei main: " << e.what() << std::endl;
     }
+    } catch (std::exception &e){
+    std::cerr << "Exception bei main: " << e.what() << std::endl;
+    return -1;
+}
 
 
     return 0;
