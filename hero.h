@@ -4,11 +4,11 @@
 #include <iostream>
 #include "npc.h"
 #include "item.h"
-#include "charakter.h"
+#include "character.h"
 
 class Hero : public Character {
 private:
-    Item ausruestung[2];
+    Item* ausruestung[2];
 
 
 public:
@@ -21,9 +21,9 @@ public:
 
     bool fight(class Npc* enemy, class Hero* hero);
 
-    int addEquipmentItem(const Item* item);
+    int addEquipmentItem(Item* item);
 
-    Item removeEquipmentItem(int slot);
+    Item* removeEquipmentItem(int slot);
 
     virtual ~Hero();
 

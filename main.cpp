@@ -4,45 +4,64 @@
 #include "item.h"
 #include "sorcerer.h"
 #include "fighter.h"
+#include "exception.h"
 
 int main() {
 
     Hero heros("Peter", 300, 100, 10, 10);
 
+    try {
+        sorcerer charakter("Paulo", 50, -10, 0, 10, 10);
 
-    sorcerer charakter("Paulo", 50, 100, 0, 10, 10);
 
+        charakter.addInventarItem(new Item("Keule", -60));
+        charakter.addInventarItem(new Item("Stift", 10));
 
-    Item buch;
-    buch.initItem("Comic", 20);
+        bool win = heros.fight(&charakter, &heros);
+        if (win == false) {
+            return 0;
+        }
 
-    Item trank;
-    trank.initItem("Trank", 50);
-
-    charakter.addInventarItem(&trank);
-    charakter.addInventarItem(&buch);
-
-    bool win = heros.fight(&charakter, &heros);
-    if (win == false){
-        return 0;
+    } catch (std::exception &e){
+        std::cerr << "Exception bei main: " << e.what() << std::endl;
     }
 
-    Item item;
-    item.initItem("Schwert", 100);
+    try {
+        sorcerer charakter("Bobo", 50, 10, 0, 10, 10);
 
-    Fighter Susi("Susi", 100, 100, 5, 0, 5);
-    Susi.addInventarItem(&item);
 
-    win = heros.fight(&Susi, &heros);
+        charakter.addInventarItem(new Item("Keule", 60));
+        charakter.addInventarItem(new Item("Sift", 10));
 
-    if (win == false){
-        return 0;
+        bool win = heros.fight(&charakter, &heros);
+        if (win == false) {
+            return 0;
+        }
+
+    } catch (std::exception &e){
+        std::cerr << "Exception bei main: " << e.what() << std::endl;
     }
 
+    try {
+        Fighter Susi("Susi", 100, 100, 5, 0, 5);
+        Susi.addInventarItem(new Item("Schwert", 100));
 
-    heros.sellItem( 1);
+        bool win = heros.fight(&Susi, &heros);
 
-    heros.sellItem( 0);
+        if (win == false) {
+            return 0;
+        }
+    } catch (std::exception &e){
+        std::cerr << "Exception bei main: " << e.what() << std::endl;
+    }
+
+    try {
+        heros.sellItem(1);
+
+        heros.sellItem(0);
+    } catch (std::exception &e){
+        std::cerr << "Exception bei main: " << e.what() << std::endl;
+    }
 
 
     return 0;

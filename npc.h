@@ -4,7 +4,7 @@
 #include <iostream>
 #include "hero.h"
 #include "item.h"
-#include "charakter.h"
+#include "character.h"
 
 class Npc : public Character {
 private:
@@ -16,7 +16,9 @@ public:
 
     virtual void attack(Character* hero) override;
 
-    int retrieveRandomLoot();
+    int retrieveRandomLoot2();
+
+    Item* retrieveRandomLoot();
 
     virtual ~Npc();
 };

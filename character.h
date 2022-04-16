@@ -1,16 +1,17 @@
 
 
-#ifndef MDS2HW1_CHARAKTER_H
-#define MDS2HW1_CHARAKTER_H
+#ifndef MDS2HW1_CHARACTER_H
+#define MDS2HW1_CHARACTER_H
 #include <iostream>
 #include "item.h"
+#include "exception.h"
 
 class Character {
 private:
     std::string name;
     int leben;
     int gold;
-    Item inventar[10];
+    Item* inventar[10];
     int armor;
     int magicResistance;
 
@@ -20,11 +21,11 @@ public:
 
     virtual void attack(Character* enemy) = 0;
 
-    Item removeInventarItem(int slot);
+    Item* removeInventarItem(int slot);
 
     int addInventarItem( Item* item);
 
-    Item getInvenarItem(int slot);
+    Item* getInvenarItem(int slot);
 
     const std::string &getName() const;
 
@@ -41,6 +42,10 @@ public:
     int getArmor() const;
 
     int getMagicResistance() const;
+
+
 };
 
-#endif //MDS2HW1_CHARAKTER_H
+std::ostream& operator<<(std::ostream& out, const Character& c);
+
+#endif //MDS2HW1_CHARACTER_H

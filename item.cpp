@@ -2,15 +2,6 @@
 #include "item.h"
 
 
-void Item::initItem(const std::string name, int gold){
-    this->bezeichnung = name;
-    this->wert = gold;
-    this->isValid = true;
-}
-
-void Item::initItem(){
-    this->isValid = false;
-}
 
 const std::string &Item::getBezeichnung() const {
     return bezeichnung;
@@ -29,9 +20,28 @@ void Item::setBezeichnung(const std::string &bezeichnung) {
 }
 
 void Item::setWert(int wert) {
+    if (wert < 0){
+        throw NegativeNumberException("Item::setWert(): Wert kann nicht negativ sein");
+    }
     Item::wert = wert;
 }
 
 void Item::setIsValid(bool isValid) {
     Item::isValid = isValid;
+}
+
+Item::Item(const std::string &bezeichnung, int wert) : bezeichnung(bezeichnung), wert(wert) {
+    if (wert < 0){
+        throw NegativeNumberException("Item::Item(): Wert kann nicht negativ sein");
+    }
+    this->isValid = true;
+}
+
+Item::Item() {
+    this->isValid = false;
+}
+
+std::ostream& operator<<(std::ostream& out, const Item& i) {
+    out << i.getBezeichnung() << " (" << i.getWert() << " $)";
+    return out;
 }

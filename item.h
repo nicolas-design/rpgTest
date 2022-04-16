@@ -2,6 +2,7 @@
 #ifndef MDS2HW1_ITEM_H
 #define MDS2HW1_ITEM_H
 #include <iostream>
+#include "exception.h"
 
 
 class Item {
@@ -11,9 +12,10 @@ private:
     bool isValid;
 
 public:
-    void initItem(const std::string name, int gold);
+    Item(const std::string &bezeichnung, int wert);
 
-    void initItem();
+    Item();
+
 
     const std::string &getBezeichnung() const;
 
@@ -28,6 +30,6 @@ public:
     void setIsValid(bool isValid);
 };
 
-
+std::ostream& operator<<(std::ostream& out, const Item& i);
 
 #endif //MDS2HW1_ITEM_H

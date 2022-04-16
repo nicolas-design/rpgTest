@@ -17,10 +17,10 @@ void Npc::attack(class Character* hero){
 
 
 
-int Npc::retrieveRandomLoot(){
+int Npc::retrieveRandomLoot2(){
     int arrCount=0;
     for (int i = 0; i < 10; ++i) {
-        if (this->getInvenarItem(i).isValidget()== true){
+        if (this->getInvenarItem(i) != nullptr){
             arrCount++;
         }
     }
@@ -30,7 +30,7 @@ int Npc::retrieveRandomLoot(){
     int arr[arrCount];
     int count = 0;
     for (int i = 0; i < 10; ++i) {
-        if (this->getInvenarItem(i).isValidget()== true){
+        if (this->getInvenarItem(i) != nullptr){
             arr[count] = i;
             count++;
         }
@@ -43,6 +43,35 @@ int Npc::retrieveRandomLoot(){
 
     return arr[num];
 }
+
+
+Item* Npc::retrieveRandomLoot(){
+    int arrCount=0;
+    for (int i = 0; i < 10; ++i) {
+        if (this->getInvenarItem(i) != nullptr){
+            arrCount++;
+        }
+    }
+    if (arrCount == 0){
+        throw NoLootException("Npc::retrieveRandomLoot(): Enemy hat keinen Loot");
+    }
+    int arr[arrCount];
+    int count = 0;
+    for (int i = 0; i < 10; ++i) {
+        if (this->getInvenarItem(i) != nullptr){
+            arr[count] = i;
+            count++;
+        }
+    }
+    int num = 0;
+    if (arrCount > 1) {
+        srand((unsigned) time(0));
+        num = rand() % (arrCount);
+    }
+
+    return this->removeInventarItem(arr[num]);
+}
+
 
 Npc::Npc(const std::string &name, int leben, int gold, int armor, int magicResistance) : Character(name, leben, gold, armor, magicResistance) {}
 

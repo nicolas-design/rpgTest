@@ -5,6 +5,9 @@ int Fighter::getStrength() const {
 }
 
 void Fighter::setStrength(int strength) {
+    if (strength < 0){
+        throw NegativeNumberException("Fighter::setStrength(): Strength kann keinen negativeN Wert annehmen");
+    }
     Fighter::strength = strength;
 }
 
@@ -16,7 +19,7 @@ void Fighter::attack(class Character* hero){
     }
     int leben = hero->getLeben()-num;
     hero->setLeben(leben);
-    std::cout << this->getName() << " trifft " << hero->getName() << " fuer " << num << " Lebenspunkte." << std::endl;
+    std::cout << *this << " trifft " << hero->getName() << " fuer " << num << " Lebenspunkte." << std::endl;
 }
 
 Fighter::Fighter(const std::string &name, int leben, int gold, int armor, int magicResistance, int strength) : Npc(name,
@@ -25,5 +28,9 @@ Fighter::Fighter(const std::string &name, int leben, int gold, int armor, int ma
                                                                                                                    armor,
                                                                                                                    magicResistance),
                                                                                                                strength(
-                                                                                                                       strength) {}
+                                                                                                                       strength) {
+    if (strength < 0 ){
+        throw NegativeNumberException("Fighter::Fighter(): Bei der Initialisierung sollen keine negativen Werte verwendet werden");
+    }
+}
 
